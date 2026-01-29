@@ -1,10 +1,12 @@
 const applyStyle = (style) => {
     const fontMap = {
-        'sans': 'Arial, Helvetica, sans-serif',
-        'serif': 'Georgia, "Times New Roman", serif',
-        'mono': '"Courier New", Courier, monospace',
-        'system': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        'dyslexic': 'OpenDyslexic, "Comic Sans MS", sans-serif'
+        'arial': 'Arial, Helvetica, sans-serif',
+        'times': '"Times New Roman", Times, serif',
+        'georgia': 'Georgia, serif',
+        'consolas': 'Consolas, "Courier New", monospace',
+        'calibri': 'Calibri, "Gill Sans", sans-serif',
+        'monotype': '"Monotype Sorts", "Lucida Console", monospace',
+        'verdana': 'Verdana, Geneva, sans-serif'
     }
     
     let selected = document.querySelector("body")

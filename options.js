@@ -14,8 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (preference) {
             chrome.storage.sync.set({ stylePreference: preference }, () => {
-                const element = document.querySelector(".success")
-                element.style.display = "block";
+                const element_selected = document.querySelector(".success")
+                element_selected.style.display = "block";
+                element.innerText = preference;
 
                 // Close the tab after a short delay to show the success message
                 setTimeout(() => {
