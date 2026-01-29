@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Font Styler Settings</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        color: #111827;
+      }
+
+      h1 {
+        margin-bottom: 10px;
+        font-size: 22px;
+      }
+
+      p {
+        margin-bottom: 20px;
+        color: #6b7280;
+        font-size: 14px;
+      }
+
+      .card {
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 20px;
+        background: #f9fafb;
+      }
+
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+
+      .preview {
+        padding: 12px;
+        border: 1px dashed #d1d5db;
+        border-radius: 8px;
+        background: #ffffff;
+        font-size: 15px;
+        line-height: 1.5;
+        margin-bottom: 15px;
+      }
+
+      button {
+        padding: 10px 18px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        background: #2563eb;
+        color: white;
+      }
+
+      button:hover {
+        background: #1d4ed8;
+      }
+
+      .success {
+        margin-top: 12px;
+        color: green;
+        font-size: 14px;
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Font Styler – Settings</h1>
+    <p>
+      Choose your default font style. This will be applied whenever you use the
+      extension.
+    </p>
+    <p id="chosen-style"></p>
+    <div class="card">
+      <label for="fontStyle">Default font style</label>
+      <select id="fontStyle">
+        <option value="sans">Sans-serif (Clean & modern)</option>
+        <option value="serif">Serif (Classic & readable)</option>
+        <option value="mono">Monospace (Code-style)</option>
+        <option value="system">System default</option>
+        <option value="dyslexic">Readable (Dyslexia-friendly)</option>
+      </select>
+
+      <div id="preview" class="preview">
+        The quick brown fox jumps over the lazy dog.
+      </div>
+
+      <button id="saveBtn">Save preference</button>
+      <div id="successMsg" class="success">Preference saved ✔</div>
+    </div>
+
+    <!-- Logic will go here later -->
+    <!-- <script src="options.js"></script> -->
+     <script src="options.js"></script>
+  </body>
+</html>

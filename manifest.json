@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Web Notes",
+  "name": "Web Page Notes",
   "version": "1.0",
   "permissions": ["scripting", "activeTab", "storage"],
   "action": {
