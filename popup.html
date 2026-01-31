@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Font Styler</title>
+    <title>Quick Notes</title>
     <style>
       body {
         font-family: Arial, sans-serif;
-        width: 320px;
+        width: 380px;
         margin: 0;
         padding: 16px;
         background: #ffffff;
@@ -20,45 +20,48 @@
         font-weight: 700;
       }
 
-      p {
+      .message {
         margin: 0 0 14px 0;
         font-size: 12px;
         color: #6b7280;
         line-height: 1.4;
       }
 
-      .card {
+      .notes-container {
         border: 1px solid #e5e7eb;
         border-radius: 10px;
-        padding: 12px;
+        padding: 14px;
         background: #f9fafb;
+        margin-bottom: 12px;
       }
 
-      label {
-        display: block;
-        font-size: 12px;
-        font-weight: 600;
-        margin-bottom: 6px;
+      .notes-content {
+        margin: 0 0 12px 0;
+        padding: 10px;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: #374151;
       }
 
-      select {
+      .user-content {
         width: 100%;
         padding: 10px;
         border: 1px solid #d1d5db;
-        border-radius: 8px;
+        border-radius: 6px;
         font-size: 13px;
+        font-family: Arial, sans-serif;
+        resize: vertical;
         outline: none;
-        background: white;
+        box-sizing: border-box;
+        line-height: 1.5;
       }
 
-      .preview {
-        margin-top: 10px;
-        padding: 10px;
-        border: 1px dashed #d1d5db;
-        border-radius: 8px;
-        background: #ffffff;
-        font-size: 13px;
-        line-height: 1.45;
+      .user-content:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
       }
 
       .buttons {
@@ -72,40 +75,70 @@
         padding: 10px;
         border: 0;
         border-radius: 8px;
-        font-weight: 700;
+        font-weight: 600;
+        font-size: 13px;
         cursor: pointer;
+        transition: background 0.2s;
       }
 
-      #applyBtn {
+      #saveBtn {
         background: #2563eb;
         color: white;
       }
 
-      #applyBtn:hover {
+      #saveBtn:hover {
         background: #1d4ed8;
       }
 
-      #resetBtn {
+      #clearBtn {
         background: #f3f4f6;
         color: #111827;
         border: 1px solid #e5e7eb;
       }
 
-      #resetBtn:hover {
+      #clearBtn:hover {
         background: #e5e7eb;
       }
 
       .hint {
         margin-top: 10px;
+        padding: 8px;
         font-size: 11px;
         color: #6b7280;
+        background: #f9fafb;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+      }
+
+      .label {
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 24px;
+        color: #9ca3af;
+        font-size: 13px;
+      }
+
+      .empty-state svg {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 12px;
+        opacity: 0.5;
       }
     </style>
   </head>
   <body>
-      <div class="message">
-      </div>
-
+    <h2>📝 Quick Notes</h2>
+    <div class="message">
+      Select text on any webpage to capture it here with your notes.
     </div>
 
     <script src="popup.js"></script>
