@@ -143,6 +143,51 @@
         margin-bottom: 12px;
         opacity: 0.5;
       }
+
+      .export-all-btn {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 16px;
+        border: 2px solid #2563eb;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        background: #2563eb;
+        color: white;
+        transition: all 0.2s;
+      }
+
+      .export-all-btn:hover {
+        background: #1d4ed8;
+        border-color: #1d4ed8;
+      }
+
+      .export-buttons {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .export-btn {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #2563eb;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        background: #eff6ff;
+        color: #2563eb;
+        transition: all 0.2s;
+      }
+
+      .export-btn:hover {
+        background: #2563eb;
+        color: white;
+      }
     </style>
   </head>
   <body>
@@ -150,6 +195,10 @@
     <div class="message">
       Select text on any webpage to capture it here with your notes.
     </div>
+
+    <button id="exportAllBtn" class="export-all-btn" style="display: none;">
+      📄 Export All Notes from This Page
+    </button>
 
     <script src="popup.js"></script>
   </body>

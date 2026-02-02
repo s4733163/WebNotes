@@ -1,20 +1,31 @@
 {
   "manifest_version": 3,
-  "name": "Web Page Notes",
+  "name": "Quick Notes",
   "version": "1.0",
-  "permissions": ["scripting", "activeTab", "storage"],
+  "description": "Capture selected text and add notes",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": "WebNotes.png"
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "js": ["content.js"],
+      "run_at": "document_idle"
     }
   ],
-  "background": {
-    "service_worker": "background.js"
-  },
-  "options_page": "options.html",
-  "host_permissions": ["<all_urls>"]
+  "web_accessible_resources": [
+    {
+      "resources": ["export.html"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ]
 }

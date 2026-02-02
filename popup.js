@@ -1,3 +1,53 @@
+// Function to export to PDF (via print dialog)
+function exportToPDF(selectedText, userNotes, url) {
+    try {
+        // Encode the data for URL parameters
+        const params = new URLSearchParams({
+            selectedText: encodeURIComponent(selectedText),
+            userNotes: encodeURIComponent(userNotes),
+            url: encodeURIComponent(url)
+        });
+
+        // Open the export page in a new tab
+        const exportUrl = chrome.runtime.getURL('export.html') + '?' + params.toString();
+        chrome.tabs.create({ url: exportUrl });
+        
+    } catch (error) {
+        console.error('Error exporting to PDF:', error);
+        alert('Error opening export page: ' + error.message);
+    }
+}
+
+// Function to export all notes from current page
+function exportAllNotes(url) {
+    chrome.storage.local.get(['savedNotes'], (result) => {
+        const savedNotes = result.savedNotes || []
+        const urlNotes = savedNotes.filter(note => note.url === url)
+        
+        if (urlNotes.length === 0) {
+            alert('No notes found for this page')
+            return
+        }
+
+        // Create a combined data structure for multiple notes
+        const notesData = urlNotes.map(note => ({
+            selectedText: note.selectedText,
+            userNotes: note.userNotes,
+            timestamp: note.timestamp
+        }))
+
+        // Encode as JSON in URL parameter
+        const params = new URLSearchParams({
+            url: encodeURIComponent(url),
+            notesData: encodeURIComponent(JSON.stringify(notesData))
+        });
+
+        // Open the export page
+        const exportUrl = chrome.runtime.getURL('export.html') + '?' + params.toString();
+        chrome.tabs.create({ url: exportUrl });
+    })
+}
+
 // Function to create notes UI
 function createNotesUI(selectedText, tabUrl, text_value = "") {
     const element = document.querySelector(".message")
@@ -87,17 +137,17 @@ function createNotesUI(selectedText, tabUrl, text_value = "") {
             chrome.storage.local.set({ savedNotes: updatedNotes }, () => {
                 // Remove the entire container from the DOM
                 container.remove()
-            })
 
-            // if no notes corresponding to a url
-            const remainingOnPage = updatedNotes.filter((note) => {
-                return note.url === tabUrl
-            })
+                // if no notes corresponding to a url
+                const remainingOnPage = updatedNotes.filter((note) => {
+                    return note.url === tabUrl
+                })
 
-            if (remainingOnPage.length === 0) {
-                element.style.display = 'block'
-                element.innerHTML = '<div class="empty-state"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><p>No text selected.<br>Highlight text on the page and open this popup.</p></div>'
-            }
+                if (remainingOnPage.length === 0) {
+                    element.style.display = 'block'
+                    element.innerHTML = '<div class="empty-state"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><p>No text selected.<br>Highlight text on the page and open this popup.</p></div>'
+                }
+            })
         })
     })
     buttonsDiv.appendChild(deleteBtn)
@@ -142,9 +192,19 @@ document.addEventListener("DOMContentLoaded", () => {
                         return element.url === tab.url
                     })
 
-                    url_notes.forEach((element) => {
-                        createNotesUI(element.selectedText, element.url, element.userNotes)
-                    })
+                    if (url_notes.length > 0) {
+                        // Show export all button
+                        const exportAllBtn = document.getElementById('exportAllBtn')
+                        exportAllBtn.style.display = 'block'
+                        exportAllBtn.addEventListener('click', () => {
+                            exportAllNotes(tab.url)
+                        })
+
+                        // Display each note
+                        url_notes.forEach((element) => {
+                            createNotesUI(element.selectedText, element.url, element.userNotes)
+                        })
+                    }
                 }
             })
 
