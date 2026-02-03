@@ -188,16 +188,68 @@
         background: #2563eb;
         color: white;
       }
+
+      .view-mode-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 12px;
+        margin-bottom: 12px;
+        background: #f3f4f6;
+        border-radius: 6px;
+        font-size: 12px;
+      }
+
+      .view-mode-text {
+        color: #4b5563;
+      }
+
+      .view-mode-text strong {
+        color: #1f2937;
+      }
+
+      .view-mode-change {
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .view-mode-change:hover {
+        text-decoration: underline;
+      }
+
+      .url-group {
+        margin-bottom: 20px;
+      }
+
+      .url-header {
+        font-size: 12px;
+        font-weight: 600;
+        color: #2563eb;
+        padding: 8px 10px;
+        background: #eff6ff;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        word-break: break-all;
+        border-left: 3px solid #2563eb;
+      }
     </style>
   </head>
   <body>
     <h2>📝 Quick Notes</h2>
+
+    <div class="view-mode-bar" id="viewModeBar">
+      <span class="view-mode-text">Viewing: <strong id="viewModeLabel">This page</strong></span>
+      <a class="view-mode-change" id="changeViewMode">Change</a>
+    </div>
+
     <div class="message">
       Select text on any webpage to capture it here with your notes.
     </div>
 
     <button id="exportAllBtn" class="export-all-btn" style="display: none;">
-      📄 Export All Notes from This Page
+      📄 Export All Notes
     </button>
 
     <script src="popup.js"></script>

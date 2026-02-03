@@ -145,6 +145,36 @@
                 display: none;
             }
         }
+
+        .url-group-export {
+            margin-bottom: 40px;
+        }
+
+        .url-header-export {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2563eb;
+            padding: 12px 15px;
+            background: #eff6ff;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2563eb;
+            word-break: break-all;
+        }
+
+        .url-separator {
+            border: none;
+            border-top: 3px solid #2563eb;
+            margin: 50px 0;
+        }
+
+        @media print {
+            .url-separator {
+                page-break-before: always;
+                border: none;
+                margin: 0;
+            }
+        }
     </style>
 </head>
 <body>

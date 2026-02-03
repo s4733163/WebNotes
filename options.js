@@ -1,34 +1,70 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let element = document.getElementById("chosen-style")
+    const fontStatus = document.getElementById("chosen-style")
+    const successMsg = document.getElementById("successMsg")
+    const radioOptions = document.querySelectorAll(".radio-option")
 
-    chrome.storage.sync.get(["stylePreference"], (result) => {
-        // e.g. resullt = {stylePreference: Sans-serif}
+    // Load saved settings
+    chrome.storage.sync.get(["stylePreference", "notesViewMode"], (result) => {
+        // Load font preference
         if (result.stylePreference) {
-            // set the style if exists
-            element.innerText = result.stylePreference
+            fontStatus.innerText = "Current: " + result.stylePreference
+            document.getElementById("fontStyle").value = result.stylePreference
         }
+
+        // Load view mode preference (default to "current")
+        const viewMode = result.notesViewMode || "current"
+        document.querySelector(`input[name="viewMode"][value="${viewMode}"]`).checked = true
+        updateRadioStyles()
     })
 
+    // Update radio button styles when clicked
+    radioOptions.forEach(option => {
+        option.addEventListener("click", () => {
+            updateRadioStyles()
+        })
+    })
+
+    function updateRadioStyles() {
+        radioOptions.forEach(option => {
+            const radio = option.querySelector("input[type='radio']")
+            if (radio.checked) {
+                option.classList.add("selected")
+            } else {
+                option.classList.remove("selected")
+            }
+        })
+    }
+
+    // Save settings
     document.getElementById("saveBtn").addEventListener("click", () => {
-        const preference = document.getElementById("fontStyle").value
+        const fontPreference = document.getElementById("fontStyle").value
+        const viewMode = document.querySelector("input[name='viewMode']:checked").value
 
-        if (preference) {
-            chrome.storage.sync.set({ stylePreference: preference }, () => {
-                const element_selected = document.querySelector(".success")
-                element_selected.style.display = "block";
-                element.innerText = preference;
+        const settings = { notesViewMode: viewMode }
 
-                // Close the tab after a short delay to show the success message
-                setTimeout(() => {
-                    window.close();
-                    // For cases where window.close() doesn't work (like when opened programmatically)
-                    chrome.tabs.getCurrent((tab) => {
-                        if (tab) {
-                            chrome.tabs.remove(tab.id);
-                        }
-                    });
-                }, 1000);
-            })
+        // Only save font if selected
+        if (fontPreference) {
+            settings.stylePreference = fontPreference
         }
+
+        chrome.storage.sync.set(settings, () => {
+            successMsg.style.display = "block"
+
+            if (fontPreference) {
+                fontStatus.innerText = "Current: " + fontPreference
+            }
+
+            // Hide success message after 2 seconds
+            setTimeout(() => {
+                successMsg.style.display = "none"
+                // For cases where window.close() doesn't work (like when opened programmatically)
+                chrome.tabs.getCurrent((tab) => {
+                    if (tab) {
+                        chrome.tabs.remove(tab.id);
+                    }
+                });
+
+            }, 2000)
+        })
     })
 })
