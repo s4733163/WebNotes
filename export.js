@@ -80,6 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Helper function to escape HTML
+// XSS scripting issue dealt in this
+// html can be passed in the form of selected text or notes
+// this will simply escape all the html not breaking layout
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
