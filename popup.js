@@ -175,6 +175,7 @@ function displayNotesGroupedByUrl(savedNotes) {
     })
 
     // Create UI for each URL group
+    // array of url's
     Object.keys(notesByUrl).forEach(url => {
         const urlGroup = document.createElement('div')
         urlGroup.setAttribute('class', 'url-group')

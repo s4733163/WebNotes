@@ -11,12 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("fontStyle").value = result.stylePreference
         }
 
-        // Load view mode preference (default to "current")
+        // Load view mode preference 
+        // default mode is current
         const viewMode = result.notesViewMode || "current"
         document.querySelector(`input[name="viewMode"][value="${viewMode}"]`).checked = true
         updateRadioStyles()
     })
 
+    // add event listener for each radio button
     // Update radio button styles when clicked
     radioOptions.forEach(option => {
         option.addEventListener("click", () => {
@@ -24,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     })
 
+    // update the radio style buttons clicked
     function updateRadioStyles() {
         radioOptions.forEach(option => {
             const radio = option.querySelector("input[type='radio']")
@@ -40,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const fontPreference = document.getElementById("fontStyle").value
         const viewMode = document.querySelector("input[name='viewMode']:checked").value
 
+        // set the viewmode
         const settings = { notesViewMode: viewMode }
 
         // Only save font if selected
@@ -47,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
             settings.stylePreference = fontPreference
         }
 
+        // set the settings, display message and close
         chrome.storage.sync.set(settings, () => {
             successMsg.style.display = "block"
 

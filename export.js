@@ -41,15 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const notesByUrl = {}
             notesData.forEach(note => {
                 if (!notesByUrl[note.url]) {
+                    // add the url as the key if  not present
                     notesByUrl[note.url] = []
                 }
+                // add the notes corresponding to the url
                 notesByUrl[note.url].push(note)
             })
 
             // Create sections for each URL group
             let globalIndex = 1
             Object.keys(notesByUrl).forEach((url, urlIndex) => {
-                // URL group container
+                // we get the keys which is the url
+                // add the url 
                 const urlGroup = document.createElement('div')
                 urlGroup.className = 'url-group-export'
                 urlGroup.innerHTML = `
@@ -57,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `
                 container.appendChild(urlGroup)
 
-                // Notes for this URL
+                // add all the noets for each url
                 notesByUrl[url].forEach((note) => {
                     const noteSection = document.createElement('div')
                     noteSection.className = 'note-group'
@@ -72,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="content-box user-notes">${note.userNotes ? escapeHtml(note.userNotes) : '<span class="empty-note">(No notes added)</span>'}</div>
                         </div>
                     `
+                    // add the notes corresponding to the url
                     urlGroup.appendChild(noteSection)
                     globalIndex++
                 })
@@ -88,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             notesData.forEach((note, index) => {
                 const noteSection = document.createElement('div')
                 noteSection.className = 'note-group'
+                // we add the separator before every note except last one
                 noteSection.innerHTML = `
                     <h2 class="note-number">Note ${index + 1}</h2>
                     <div class="section" style="display: block;">
@@ -105,14 +110,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     } else {
         // Single note export (backward compatibility)
+        // text and notes have been passed as the args
         const selectedText = params.get('selectedText') || ''
         const userNotes = params.get('userNotes') || ''
 
+        // add the selected text
         const selectedTextElement = document.getElementById('selected-text')
         if (selectedTextElement) {
             selectedTextElement.textContent = decodeURIComponent(selectedText)
         }
 
+        // add the notes
         const notesElement = document.getElementById('user-notes')
         if (notesElement) {
             if (userNotes) {
@@ -127,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const printBtn = document.getElementById('printBtn')
     if (printBtn) {
         printBtn.addEventListener('click', () => {
+            // set to the print mode
             window.print()
         })
     }
