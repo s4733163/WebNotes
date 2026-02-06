@@ -97,7 +97,3 @@ WebNotes/
 ├── export.js        # Export rendering logic
 └── WebNotes.png     # Extension icon
 ```
-
-## License
-
-MIT License

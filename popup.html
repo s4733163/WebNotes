@@ -81,6 +81,14 @@
         transition: background 0.2s;
       }
 
+      /* Accessibility: Focus styles for keyboard navigation */
+      button:focus-visible,
+      .view-mode-change:focus-visible,
+      .user-content:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 2px;
+      }
+
       #saveBtn {
         background: #2563eb;
         color: white;
@@ -239,18 +247,21 @@
   <body>
     <h2>📝 Quick Notes</h2>
 
-    <div class="view-mode-bar" id="viewModeBar">
+    <div class="view-mode-bar" id="viewModeBar" role="status" aria-live="polite">
       <span class="view-mode-text">Viewing: <strong id="viewModeLabel">This page</strong></span>
-      <a class="view-mode-change" id="changeViewMode">Change</a>
+      <a class="view-mode-change" id="changeViewMode" role="button" tabindex="0" aria-label="Change view mode settings">Change</a>
     </div>
 
     <div class="message">
       Select text on any webpage to capture it here with your notes.
     </div>
 
-    <button id="exportAllBtn" class="export-all-btn" style="display: none;">
+    <button id="exportAllBtn" class="export-all-btn" style="display: none;" aria-label="Export all notes to PDF">
       📄 Export All Notes
     </button>
+
+    <!-- Notes container - dynamically populated by popup.js -->
+    <main id="notesContainer" role="main" aria-label="Saved notes"></main>
 
     <script src="popup.js"></script>
   </body>

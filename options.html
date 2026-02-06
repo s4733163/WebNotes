@@ -27,6 +27,17 @@
             border-bottom: none;
         }
 
+        /* Reset fieldset styles */
+        fieldset.section {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        fieldset.section legend {
+            padding: 0;
+        }
+
         .section-title {
             font-weight: bold;
             font-size: 16px;
@@ -107,6 +118,14 @@
             background: #1d4ed8;
         }
 
+        /* Accessibility: Focus styles for keyboard navigation */
+        button:focus-visible,
+        select:focus-visible,
+        input[type="radio"]:focus-visible {
+            outline: 2px solid #2563eb;
+            outline-offset: 2px;
+        }
+
         .status {
             margin-top: 10px;
             color: #059669;
@@ -127,9 +146,9 @@
 <body>
     <h1>Quick Notes Settings</h1>
 
-    <div class="section">
-        <div class="section-title">Notes View Mode</div>
-        <div class="radio-group" id="viewModeGroup">
+    <fieldset class="section">
+        <legend class="section-title">Notes View Mode</legend>
+        <div class="radio-group" id="viewModeGroup" role="radiogroup" aria-label="Select notes view mode">
             <label class="radio-option" for="viewCurrent">
                 <input type="radio" id="viewCurrent" name="viewMode" value="current" checked>
                 <div class="radio-label">
@@ -145,10 +164,10 @@
                 </div>
             </label>
         </div>
-    </div>
+    </fieldset>
 
     <div class="section">
-        <div class="section-title">Default Font</div>
+        <label class="section-title" for="fontStyle">Default Font</label>
         <select id="fontStyle">
             <option value="">-- None --</option>
             <option value="arial">Arial</option>
@@ -162,8 +181,8 @@
         <div class="status" id="chosen-style"></div>
     </div>
 
-    <button id="saveBtn">Save Settings</button>
-    <div class="success" id="successMsg">Settings saved!</div>
+    <button id="saveBtn" aria-label="Save all settings">Save Settings</button>
+    <div class="success" id="successMsg" role="alert" aria-live="polite">Settings saved!</div>
 
     <script src="options.js"></script>
 </body>
