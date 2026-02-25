@@ -112,8 +112,7 @@ function createNotesUI(selectedText, noteUrl, text_value = "", container = null,
                 }
             })
             id += 1
-            noteData.id = id
-            id = noteData.id  // keep id in sync so delete targets the right note
+            noteData.id = id // keep id in sync so delete targets the right note 
             savedNotes.push(noteData)
 
             // save the notes and the event to be done after saving
