@@ -43,8 +43,10 @@ function exportAllNotes(url, viewMode) {
 }
 
 // Function to create notes UI
-function createNotesUI(selectedText, noteUrl, text_value = "", container = null) {
+// noteId is passed for already-saved notes so delete uses the correct id
+function createNotesUI(selectedText, noteUrl, text_value = "", container = null, noteId = null) {
     const element = document.querySelector(".message")
+    let id = noteId  // id assigned to the newly created note
 
     // Create container if not provided (for URL grouping)
     const noteContainer = document.createElement('div')
@@ -101,8 +103,20 @@ function createNotesUI(selectedText, noteUrl, text_value = "", container = null)
         }
 
         chrome.storage.local.get(['savedNotes'], (result) => {
+            // get the saved notes and add the new notes 
             const savedNotes = result.savedNotes || []
+            // assign unique id to each and every note 
+            savedNotes.forEach((note) => {
+                if (note.id > id) {
+                    id = note.id
+                }
+            })
+            id += 1
+            noteData.id = id
+            id = noteData.id  // keep id in sync so delete targets the right note
             savedNotes.push(noteData)
+
+            // save the notes and the event to be done after saving
             chrome.storage.local.set({ savedNotes }, () => {
                 saveBtn.innerText = '✓ Saved!'
                 setTimeout(() => {
@@ -114,6 +128,7 @@ function createNotesUI(selectedText, noteUrl, text_value = "", container = null)
     buttonsDiv.appendChild(saveBtn)
 
     // Clear button
+    // clear the notes that the user added but not the selected content
     const clearBtn = document.createElement('button')
     clearBtn.setAttribute('id', 'clearBtn')
     clearBtn.innerText = 'Clear'
@@ -131,8 +146,9 @@ function createNotesUI(selectedText, noteUrl, text_value = "", container = null)
             const savedNotes = result.savedNotes || []
             // Filter out the note that matches this container's text and url
             const updatedNotes = savedNotes.filter((note) => {
-                return !(note.selectedText === selectedText && note.url === noteUrl)
+                return note.id !== id
             })
+            
             chrome.storage.local.set({ savedNotes: updatedNotes }, () => {
                 // Remove the note container from the DOM
                 noteContainer.remove()
@@ -189,7 +205,7 @@ function displayNotesGroupedByUrl(savedNotes) {
 
         // Notes for this URL
         notesByUrl[url].forEach(note => {
-            createNotesUI(note.selectedText, note.url, note.userNotes, urlGroup)
+            createNotesUI(note.selectedText, note.url, note.userNotes, urlGroup, note.id)
         })
     })
 
@@ -268,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 exportAllNotes(tab.url, "current")
                             })
                             urlNotes.forEach(note => {
-                                createNotesUI(note.selectedText, note.url, note.userNotes)
+                                createNotesUI(note.selectedText, note.url, note.userNotes, null, note.id)
                             })
                         }
                     }
