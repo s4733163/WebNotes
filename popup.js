@@ -103,17 +103,26 @@ function createNotesUI(selectedText, noteUrl, text_value = "", container = null,
         }
 
         chrome.storage.local.get(['savedNotes'], (result) => {
-            // get the saved notes and add the new notes 
             const savedNotes = result.savedNotes || []
-            // assign unique id to each and every note 
-            savedNotes.forEach((note) => {
-                if (note.id > id) {
-                    id = note.id
+
+            if (id !== null) {
+                // Note already exists — update it in place
+                const existingIndex = savedNotes.findIndex(note => note.id === id)
+                if (existingIndex !== -1) {
+                    savedNotes[existingIndex].userNotes = created_textarea.value
+                    savedNotes[existingIndex].timestamp = new Date().toISOString()
                 }
-            })
-            id += 1
-            noteData.id = id // keep id in sync so delete targets the right note 
-            savedNotes.push(noteData)
+            } else {
+                // New note — assign a unique id and push
+                savedNotes.forEach((note) => {
+                    if (note.id > id) {
+                        id = note.id
+                    }
+                })
+                id += 1
+                noteData.id = id
+                savedNotes.push(noteData)
+            }
 
             // save the notes and the event to be done after saving
             chrome.storage.local.set({ savedNotes }, () => {
