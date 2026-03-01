@@ -82,6 +82,18 @@ In "All pages" mode, the export includes all notes grouped by their source URLs.
 
 All data remains on your device and is never transmitted externally.
 
+## Copyright & Restrictions
+
+© 2025 Varun Singh. All rights reserved.
+
+This source code is made available for **viewing and personal use only**.
+
+- You may **not** publish, distribute, or release this extension (or any modified version of it) to the Chrome Web Store or any other platform without explicit written permission from the author.
+- You may **not** rebrand or rename this extension and publish it as your own.
+- Forks and clones for **personal, non-commercial, private use** are permitted, but any public distribution or publication is strictly prohibited.
+
+For permissions or enquiries, contact the author at **24varun09@gmail.com**.
+
 ## File Structure
 
 ```
