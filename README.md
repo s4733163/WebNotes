@@ -2,6 +2,8 @@
 
 A lightweight Chrome extension for capturing selected text from any webpage, adding personal notes, and exporting them as PDF.
 
+[Install from Chrome Web Store](https://chromewebstore.google.com/detail/quick-notes/kbfnlicpnpepfnbabfgiljijjnfcgacf?authuser=1&hl=en)
+
 ## Features
 
 - **Text Selection Capture** - Automatically captures highlighted text from any webpage
