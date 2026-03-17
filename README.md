@@ -86,7 +86,7 @@ All data remains on your device and is never transmitted externally.
 
 ## Copyright & Restrictions
 
-© 2025 Varun Singh. All rights reserved.
+© 2026 Varun Singh. All rights reserved.
 
 This source code is made available for **viewing and personal use only**.
 
